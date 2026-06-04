@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV | Victor Hugo Tavera Covarrubias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0f0b1a;
+      --bg2:       #16102b;
+      --bg3:       #1e1738;
+      --card:      #1a1430;
+      --border:    #2e2350;
+      --purple:    #8b5cf6;
+      --purple-lt: #a78bfa;
+      --purple-dk: #6d28d9;
+      --accent:    #c084fc;
+      --muted:     #7c6faa;
+      --text:      #e9e4f7;
+      --text2:     #b8aed6;
+      --text3:     #8577b0;
+      --white:     #f5f0ff;
+      --glow:      rgba(139, 92, 246, 0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: .5;
+    }
+
+    /* ── LAYOUT ── */
+    .shell {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: 100vh;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky; top: 0;
+      height: 100vh; overflow-y: auto;
+      padding: 48px 28px 48px 32px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 36px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .avatar-wrap {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+    }
+
+    .monogram {
+      width: 70px; height: 70px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--purple-dk), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: #fff;
+      box-shadow: 0 0 28px var(--glow);
+    }
+
+    .name-block h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.55rem; line-height: 1.15;
+      color: var(--white);
+      letter-spacing: -.01em;
+    }
+
+    .name-block h1 span { color: var(--accent); font-style: italic; }
+
+    .name-block .subtitle {
+      margin-top: 6px;
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+
+    .bio {
+      font-size: 0.88rem; color: var(--text2); line-height: 1.65;
+      border-left: 2px solid var(--purple);
+      padding-left: 14px;
+    }
+
+    /* Sidebar sections */
+    .sb-section { display: flex; flex-direction: column; gap: 12px; }
+
+    .sb-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--purple-lt);
+    }
+
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .contact-list li { font-size: 0.84rem; color: var(--text2); display: flex; align-items: center; gap: 8px; }
+    .contact-list li .ico { color: var(--purple); font-size: 1rem; }
+    .contact-list a { color: var(--accent); text-decoration: none; }
+    .contact-list a:hover { text-decoration: underline; }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.75rem; font-weight: 500;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .tag:hover { background: var(--purple-dk); color: #fff; border-color: var(--purple); }
+    .tag.hi { background: rgba(139,92,246,.15); border-color: var(--purple); color: var(--purple-lt); }
+
+    .nav-links { display: flex; flex-direction: column; gap: 4px; }
+    .nav-links a {
+      font-size: 0.84rem; color: var(--text3);
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: background .15s, color .15s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-links a::before { content: '—'; color: var(--border); font-size: .7rem; }
+    .nav-links a:hover { background: var(--bg3); color: var(--purple-lt); }
+    .nav-links a:hover::before { color: var(--purple); }
+
+    /* ── MAIN ── */
+    .main {
+      padding: 56px 48px 80px 52px;
+      display: flex; flex-direction: column; gap: 64px;
+    }
+
+    /* Section */
+    section { display: flex; flex-direction: column; gap: 24px; }
+
+    .sec-header {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .sec-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem; color: var(--white);
+      letter-spacing: -.01em;
+    }
+    .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* Hero profile card */
+    .profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      position: relative; overflow: hidden;
+    }
+    .profile-card::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(139,92,246,.25), transparent 70%);
+      pointer-events: none;
+    }
+    .profile-card p { color: var(--text2); font-size: 0.93rem; line-height: 1.75; }
+    .profile-card .kpis {
+      margin-top: 20px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .kpi {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .kpi .val { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--accent); }
+    .kpi .lbl { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+
+    /* Experience cards */
+    .exp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 28px;
+      position: relative;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .exp-card:hover {
+      border-color: var(--purple);
+      box-shadow: 0 0 24px var(--glow);
+    }
+    .exp-card .org-bar {
+      display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .exp-card .org-bar .role {
+      font-weight: 600; font-size: 0.97rem; color: var(--white);
+    }
+    .exp-card .org-bar .period {
+      font-size: 0.8rem; color: var(--muted); font-style: italic;
+    }
+    .exp-card .org {
+      font-size: 0.83rem; color: var(--purple-lt); font-weight: 500; margin-bottom: 14px;
+    }
+    .exp-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; padding: 0; }
+    .exp-card ul li {
+      font-size: 0.87rem; color: var(--text2); padding-left: 18px; position: relative;
+    }
+    .exp-card ul li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--purple); font-size: .75rem; top: 3px;
+    }
+    .current-badge {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(139,92,246,.2);
+      border: 1px solid var(--purple);
+      color: var(--purple-lt);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 2px 10px; border-radius: 99px;
+      letter-spacing: .04em;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .skill-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: border-color .2s;
+    }
+    .skill-item:hover { border-color: var(--purple-lt); }
+    .skill-item.featured {
+      border-color: var(--purple);
+      background: linear-gradient(135deg, var(--card), rgba(109,40,217,.08));
+    }
+    .skill-item .sh {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;
+    }
+    .skill-item .sh .name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
+    .skill-item .sh .badge {
+      font-size: 0.7rem; font-weight: 600; padding: 2px 8px;
+      border-radius: 99px; background: rgba(139,92,246,.18);
+      color: var(--purple-lt); border: 1px solid var(--purple);
+    }
+    .skill-item .sh .badge.req {
+      background: rgba(192,132,252,.15);
+      color: var(--accent); border-color: var(--accent);
+    }
+    .skill-item p { font-size: 0.82rem; color: var(--text3); line-height: 1.6; }
+    .bar-wrap { margin-top: 10px; height: 3px; background: var(--border); border-radius: 2px; }
+    .bar { height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--purple-dk), var(--accent)); }
+
+    /* Edu */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      display: flex; align-items: flex-start; gap: 18px;
+    }
+    .edu-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--purple-dk), var(--accent));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .edu-card .deg { font-weight: 600; color: var(--white); font-size: 0.95rem; }
+    .edu-card .inst { font-size: 0.84rem; color: var(--purple-lt); margin-top: 2px; }
+    .edu-card .detail { font-size: 0.81rem; color: var(--text3); margin-top: 4px; }
+
+    /* Cursos list */
+    .course-list { display: flex; flex-direction: column; gap: 8px; }
+    .course-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 0.85rem; color: var(--text2);
+      transition: border-color .15s;
+    }
+    .course-item:hover { border-color: var(--purple); }
+    .course-item .dot {
+      margin-top: 5px; width: 7px; height: 7px; flex-shrink: 0;
+      border-radius: 50%; background: var(--purple);
+    }
+    .course-item.hi .dot { background: var(--accent); }
+    .course-item.hi { border-color: rgba(139,92,246,.4); }
+
+    /* Alineación table */
+    .align-table { width: 100%; border-collapse: collapse; }
+    .align-table th {
+      text-align: left; font-size: 0.77rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--purple-lt); padding: 10px 14px;
+      background: var(--bg3); border-bottom: 1px solid var(--border);
+    }
+    .align-table td {
+      padding: 10px 14px; font-size: 0.84rem; color: var(--text2);
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .align-table tr:last-child td { border-bottom: none; }
+    .align-table tr:hover td { background: rgba(139,92,246,.05); }
+    .align-table td:first-child { color: var(--text); font-weight: 500; }
+    .check { color: var(--accent); font-size: .9rem; }
+
+    /* Footer */
+    footer {
+      grid-column: 1/-1;
+      text-align: center; padding: 24px;
+      font-size: 0.78rem; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .main > * { animation: fadeUp .5s ease both; }
+    .main > *:nth-child(1) { animation-delay: .05s; }
+    .main > *:nth-child(2) { animation-delay: .12s; }
+    .main > *:nth-child(3) { animation-delay: .19s; }
+    .main > *:nth-child(4) { animation-delay: .26s; }
+    .main > *:nth-child(5) { animation-delay: .33s; }
+    .main > *:nth-child(6) { animation-delay: .40s; }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; }
+      .main { padding: 32px 24px 60px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .profile-card .kpis { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="avatar-wrap">
+      <div class="monogram">VT</div>
+      <div class="name-block">
+        <h1>Victor Hugo<br><span>Tavera</span> Covarrubias</h1>
+        <p class="subtitle">Economista · UNAM</p>
+      </div>
+    </div>
+
+    <p class="bio">
+      Economista con experiencia en análisis de indicadores económicos, procesamiento de bases de datos oficiales (INEGI, Banxico) y elaboración de reportes para la toma de decisiones.
+    </p>
+
+    <div class="sb-section">
+      <span class="sb-label">Contacto</span>
+      <ul class="contact-list">
+        <li><span class="ico">📞</span><a href="tel:+525591089152">(55) 9108-9152</a></li>
+        <li><span class="ico">✉</span><a href="mailto:victortaveracovarrubias29@gmail.com">victortaveracovarrubias29@gmail.com</a></li>
+        <li><span class="ico">📍</span>Ciudad de México</li>
+      </ul>
+    </div>
+
+    <div class="sb-section">
+      <span class="sb-label">Fortalezas clave</span>
+      <div class="tag-cloud">
+        <span class="tag hi">R Studio</span>
+        <span class="tag hi">Python</span>
+        <span class="tag hi">SQL</span>
+        <span class="tag hi">Bases de datos</span>
+        <span class="tag">Excel Avanzado</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Análisis macroeconómico</span>
+        <span class="tag">Series de tiempo</span>
+        <span class="tag">Reportes económicos</span>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <span class="sb-label">Navegación</span>
+      <nav class="nav-links">
+        <a href="#perfil">Perfil</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#alineacion">Alineación a vacante</a>
+        <a href="#educacion">Educación</a>
+        <a href="#formacion">Formación complementaria</a>
+      </nav>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- Perfil -->
+    <section id="perfil">
+      <div class="sec-header">
+        <h2>Perfil alineado a la vacante</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="profile-card">
+        <p>
+          Economista egresado de la UNAM con experiencia en el sector público financiero, especializado en análisis de indicadores económicos de coyuntura y procesamiento de bases de datos de gran escala. Ha participado en la elaboración de reportes analíticos, investigación sectorial y seguimiento de variables macroeconómicas en instituciones como BANCOMEXT y Banco de México. Manejo práctico de Python y R aplicados al análisis de datos, con sólida base en Excel avanzado y Power BI.
+        </p>
+        <div class="kpis">
+          <div class="kpi">
+            <div class="val">2+</div>
+            <div class="lbl">Años de experiencia</div>
+          </div>
+          <div class="kpi">
+            <div class="val">3</div>
+            <div class="lbl">Herramientas requeridas</div>
+          </div>
+          <div class="kpi">
+            <div class="val">100%</div>
+            <div class="lbl">Créditos UNAM</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia">
+      <div class="sec-header">
+        <h2>Experiencia profesional</h2>
+        <div class="sec-line"></div>
+      </div>
+
+      <div class="exp-card">
+        <span class="current-badge">● Actual</span>
+        <div class="org-bar">
+          <span class="role">Practicante – Dirección de Estudios Económicos</span>
+          <span class="period">Oct. 2024 – Actual</span>
+        </div>
+        <div class="org">Banco Nacional de Comercio Exterior (BANCOMEXT)</div>
+        <ul>
+          <li>Elaboración de reportes analíticos y monitoreo de indicadores económicos de coyuntura para la integración del Panorama Económico semanal.</li>
+          <li>Procesamiento y análisis de bases de datos de gran tamaño provenientes de diversas fuentes de información.</li>
+          <li>Investigación económica sectorial: fabricación de maquinaria y equipo agrícola a nivel SCIAN.</li>
+          <li>Investigación y reporte analítico del VAEMG (INEGI) para la industria automotriz y electrónica a nivel subsector y rama (SCIAN).</li>
+          <li>Elaboración de reportes analíticos sobre la industria automotriz ligera y su participación en exportaciones a EE. UU.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="org-bar">
+          <span class="role">Servicio Social – Análisis de Datos Financieros</span>
+          <span class="period">Mar. 2024 – Sep. 2024</span>
+        </div>
+        <div class="org">Banco de México (FIDERH)</div>
+        <ul>
+          <li>Limpieza y procesamiento de bases de datos (ENIF, ENOE – INEGI) para informes de inclusión financiera.</li>
+          <li>Análisis y homologación de bases de datos de diversas fuentes utilizando Excel y Python.</li>
+          <li>Seguimiento diario a la Tasa de Referencia Banxico y costos de captación para reportes internos.</li>
+          <li>Apoyo en análisis de solicitudes de crédito educativo aplicando criterios de riesgo y viabilidad financiera.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades">
+      <div class="sec-header">
+        <h2>Habilidades técnicas</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-item featured">
+          <div class="sh">
+            <span class="name">R Studio</span>
+            <span class="badge req">✓ Requerido</span>
+          </div>
+          <p>Econometría aplicada, análisis de series de tiempo, modelos estadísticos.</p>
+          <div class="bar-wrap"><div class="bar" style="width:65%"></div></div>
+        </div>
+
+        <div class="skill-item featured">
+          <div class="sh">
+            <span class="name">Python</span>
+            <span class="badge req">✓ Requerido</span>
+          </div>
+          <p>Descarga y procesamiento de datos, APIs de INEGI y Banxico, pandas/numpy — básico-intermedio.</p>
+          <div class="bar-wrap"><div class="bar" style="width:55%"></div></div>
+        </div>
+
+        <div class="skill-item featured">
+          <div class="sh">
+            <span class="name">SQL</span>
+            <span class="badge req">✓ Requerido</span>
+          </div>
+          <p>Conocimientos adquiridos en Curso A2 Capacitación Excel, Python, SQL, GitHub (2026).</p>
+          <div class="bar-wrap"><div class="bar" style="width:40%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="sh">
+            <span class="name">Excel</span>
+            <span class="badge">Avanzado</span>
+          </div>
+          <p>Tablas dinámicas, fórmulas avanzadas, limpieza y visualización de bases de datos.</p>
+          <div class="bar-wrap"><div class="bar" style="width:90%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="sh">
+            <span class="name">Power BI</span>
+            <span class="badge">Intermedio</span>
+          </div>
+          <p>Elaboración de dashboards e informes visuales para análisis de datos económicos.</p>
+          <div class="bar-wrap"><div class="bar" style="width:60%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="sh">
+            <span class="name">Bases de datos</span>
+            <span class="badge">INEGI · Banxico</span>
+          </div>
+          <p>ENIF, ENOE, SIE Banxico, VAEMG INEGI — limpieza, homologación y análisis estadístico.</p>
+          <div class="bar-wrap"><div class="bar" style="width:75%"></div></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Alineación a vacante -->
+    <section id="alineacion">
+      <div class="sec-header">
+        <h2>Ajuste directo a la vacante CNBV</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="profile-card" style="padding: 0; overflow: hidden;">
+        <table class="align-table">
+          <thead>
+            <tr>
+              <th>Requerimiento</th>
+              <th>Evidencia en el perfil</th>
+              <th style="width:42px; text-align:center;">✓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>R, Python o SQL (indispensable)</td>
+              <td>Curso de econometría con R-Studio y Python; uso de Python en Banxico; SQL en Curso A2 (2026)</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Procesamiento de grandes bases de datos</td>
+              <td>ENIF, ENOE (INEGI) en Banxico; homologación y conciliación con Excel y Python</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Elaborar reportes económicos periódicos</td>
+              <td>Panorama Económico semanal en BANCOMEXT; monitoreo de tasas en Banxico</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Estudios de investigación financiera/económica</td>
+              <td>Investigación sectorial automotriz, maquinaria agrícola y electrónica en BANCOMEXT</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Escenarios macroeconómicos y proyecciones</td>
+              <td>Análisis de coyuntura e indicadores macro; formación en econometría aplicada</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td>Licenciatura en Economía (título en trámite)</td>
+              <td>Lic. Economía UNAM — 100% créditos, enero 2025 | Título en trámite</td>
+              <td style="text-align:center"><span class="check">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Educación -->
+    <section id="educacion">
+      <div class="sec-header">
+        <h2>Formación académica</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="deg">Licenciatura en Economía</div>
+          <div class="inst">Facultad de Economía, UNAM</div>
+          <div class="detail">2020 – 2025 · 100% de créditos totales (enero 2025) · Título en trámite</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formación complementaria -->
+    <section id="formacion">
+      <div class="sec-header">
+        <h2>Formación complementaria</h2>
+        <div class="sec-line"></div>
+      </div>
+      <div class="course-list">
+        <div class="course-item hi">
+          <div class="dot"></div>
+          <span><strong>Curso A2 Capacitación:</strong> Excel, Python, SQL, GitHub — 2026</span>
+        </div>
+        <div class="course-item hi">
+          <div class="dot"></div>
+          <span><strong>Curso de Econometría con R-Studio y Python</strong> — Facultad de Economía, UNAM, 2023-2</span>
+        </div>
+        <div class="course-item">
+          <div class="dot"></div>
+          <span><strong>Curso-Taller: Microdatos ENIGH-ENOE</strong> — Instituto de Investigaciones Económicas, UNAM, 2024</span>
+        </div>
+        <div class="course-item">
+          <div class="dot"></div>
+          <span><strong>Curso: Tópicos Cuantitativos de Matemáticas</strong> — GEM, 2026</span>
+        </div>
+        <div class="course-item">
+          <div class="dot"></div>
+          <span><strong>Certificado de Comprensión Lectora en Inglés</strong> — ENALLT</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+<footer>
+  Victor Hugo Tavera Covarrubias · Economista · UNAM · Ciudad de México
+</footer>
+
+</body>
+</html>
